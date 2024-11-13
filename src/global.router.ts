@@ -5,6 +5,8 @@ import orderRouter from "./routes/order.routes";
 import userRouter from "./routes/user.routes";
 import { authenticate } from "./middlewares/auth";
 
+// global router 
+
 const globalRouter = Router();
 
 globalRouter.use("/auth", authRouter);

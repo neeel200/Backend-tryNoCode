@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { CurrentUserType } from "..";
 import { tryCatch } from "../lib/tryCatch";
+import CustomError from "../lib/customError";
 dotenv.config({ path: "../.env" });
 
 export const authenticate = tryCatch(async (
@@ -10,17 +11,14 @@ export const authenticate = tryCatch(async (
     res: Response,
     next: NextFunction
 ) => {
-    const header = req.headers.authorization;
-    if (!header) {
-        return res.status(401).json({ message: "Unauthorized" });
-    }
-    const token = header.split(" ")[1];
+
+    const token = req.cookies["X-auth-token"];
     if (!token) {
-        return res.status(401).json({ message: "Unauthorized" });
+        return next(new CustomError("Unauthorized", 401))
     }
     const decode = jwt.verify(token, String(process.env.JWT_SECRET));
     if (!decode) {
-        return res.status(401).json({ message: "Unauthorized" });
+        return next(new CustomError("Unauthorized", 401))
     }
     req.currentUser = decode as CurrentUserType
     next();

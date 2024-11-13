@@ -66,11 +66,17 @@ export class AuthController {
         }
 
         const token = Encrypt.generateToken({ id: user.id });
+        res.cookie("X-auth-token",token)
 
         return res.status(200).json({ message: "User logged in successfully", token });
     })
 
     static logout = tryCatch(async function (req: Request, res: Response, next: NextFunction) {
-        // invalidate the user session
+        // invalidate the user session 
+        // can also be done via refresh token approach 
+
+        // clear the cookie
+        res.clearCookie("X-auth-token");
+        return res.status(200).json({message : "User loggedout successfully!"})
     })
 }

@@ -4,7 +4,7 @@ import { User } from "./models/user";
 import { Role } from "./models/role";
 import { Product } from "./models/product";
 import { Order } from "./models/order";
-dotenv.config({ path: ".env" })
+dotenv.config({path:__dirname+"/.env"})
 
 const { DB_PASSWORD, DB_USERNAME, DB_HOST_NAME } = process.env;
 
@@ -15,7 +15,7 @@ export const appDataSource = new DataSource({
     password: DB_PASSWORD,
     username: DB_USERNAME,
     database: "EcommerceDB",
-    synchronize: true,
-    dropSchema: true,
+    // synchronize: true,
+    // dropSchema: true,
     entities: [User, Role, Product, Order]
 });
