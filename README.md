@@ -1,5 +1,7 @@
 ## Backend built with TypeScript, TypeORM, and Node.js.
 
+**API Doc**: https://docs.google.com/document/d/1wSg0yDiBnyWJuduU86XE5VgMFvxs2udSy24e-QMuy3M/edit?usp=sharing
+
 ### Setup
 - Clone the repository .
 - create a .env file with your database details (sample given).
