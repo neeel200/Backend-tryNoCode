@@ -1,21 +1,27 @@
 import express, { NextFunction, Request, Response } from "express";
 import ErrorHandler from "./lib/errorHandler";
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser"
 import customError from "./lib/customError";
 import { appDataSource } from "./dataSource";
 import globalRouter from "./global.router";
-dotenv.config({path:".env"})
+dotenv.config({path:__dirname + "/.env"})
 
 const port = process.env.PORT;
 
 export class Server {
+    // app initialization
     private app = express();
+    
     startServer() {
         this.app.use(express.json());
+        this.app.use(cookieParser());
 
+        // global Router
         this.app.use("/api", globalRouter)
 
-        this.app.get("/", (req, res) => {
+        // health route
+        this.app.get("/", (req : Request, res: Response) => {
             res.send("Working!");
         });
         

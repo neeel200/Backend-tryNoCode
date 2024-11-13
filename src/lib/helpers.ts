@@ -15,7 +15,7 @@ export class Encrypt {
     static generateToken(payload: {
         id: number
     }) {
-        return jwt.sign(payload, String(process.env.JWT_SECRET), { expiresIn: "7d" });
+        return jwt.sign(payload, String(process.env.JWT_SECRET), { expiresIn: "2d" });
     }
     
 }
